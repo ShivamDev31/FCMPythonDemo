@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <meta name="viewport" content=width="device-width", initial-scale="1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+
+<header>
+    <div class="navbar-header">
+
+        <a class="navbar-brand" href="/">
+            <img style="margin-top: -10px; margin-bottom: 5px; margin-right: 15px; height: 45px "
+                 src="{{ url_for('static', filename='images/logo.png') }}">
+        </a>
+    </div>
+
+    <div class="container-fluid">
+        <button type="button" class="btn btn-primary" aria-label="Left Align"
+                style="margin-top: 5px; margin-bottom: 5px; margin-right: 15px; height: 45px ">
+            <span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Post a deal
+        </button>
+        <ul class="nav navbar-nav navbar-right" style="margin-top: 5px; margin-bottom: 5px; margin-right: 15px;">
+            <a href="/dashboard/"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Dashboard&nbsp;&nbsp;&nbsp;</a>
+            <a href="/"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Users&nbsp;&nbsp;&nbsp;</a>
+            <a href="/send/"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Send Message&nbsp;&nbsp;&nbsp;</a>
+        </ul>
+    </div>
+</header>
+
+
+<body>
+
+<div class="border-row" style="width:100%; margin-bottom:15px;"></div>
+
+<div class="container" style="min-height: 100%">
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissable" role="alert">
+                    <button type=button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% block body %}
+    {% endblock %}
+</div>
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="application/javascript" src="{{ url_for('static', filename="js/bootstrap.min.js") }}"></script>
+</body>
+</html>

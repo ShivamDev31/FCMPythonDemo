@@ -1,0 +1,24 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+    <body>
+    <div class="container">
+        <h4>Send Message</h4>
+        <br/>
+        <form action="" class="form-inline" method="post">
+            <input type="text" class="form-control" placeholder="Message Title" name="message_title"
+                   value="{{ request.form.message_title }}">
+            <br />
+            <br />
+            <textarea class="form-control" cols="40" rows="5"placeholder="Message Body" name="message_body"
+                   value="{{ request.form.message_body }}"></textarea>
+
+            <br />
+            <br />
+            <input class="btn btn-default" type="submit" value="Send">
+        </form>
+    </div>
+    </body>
+
+{% endblock %}
