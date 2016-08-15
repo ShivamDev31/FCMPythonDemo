@@ -20,10 +20,6 @@ db.init_app(app)
 def users():
     try:
         users = Users.query.all()
-        reg_ids = select([Users.reg_id])
-        print(reg_ids)
-        for user in users:
-            print(user.reg_id)
     except Exception as e:
         print(e)
     return render_template('users.html', users=users)
@@ -52,23 +48,20 @@ def send_message():
         message_title = request.form['message_title']
         message_body = request.form['message_body']
         url = constants.GOOGLE_FCM_URL
-        reg_id = jsonify({'ids': (select([Users.reg_id]))})
-        reg_ids = json.dumps([dict(r) for r in reg_id])
-        print(reg_ids)
+        reg_ids = list(Users.query.with_entities(Users.reg_id))
 
         headers = {'Authorization': constants.FCM_SERVER_KEY, 'Content-Type': "application/json"}
-        data = {
+        data_js = {
             'to': reg_ids,
             'data': {
                 'message_title': message_title,
                 'message_body': message_body
-            },
-            'headers': headers
+            }
         }
-        data_js = json.dumps(data)
+        print(data_js)
 
         # request.headers = headers
-        res = requests.post(url=url, data=data_js)
+        res = requests.post(url=url, headers = headers, data=data_js)
         print("Text : " + res.text)
         print("Content : " + res.content)
         return redirect(url_for('send_message'))
